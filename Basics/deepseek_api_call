@@ -1,0 +1,23 @@
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv(override=True)
+api_key = os.getenv("DEEPSEEK_API_KEY")
+
+DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
+deepseek_client = OpenAI(base_url=DEEPSEEK_BASE_URL, api_key=api_key)
+
+testing_prompt = "Hello, DeepSeek! Can you tell me a joke?"
+
+# 1. This time i have use a list here with one dictionary inside it, because the API expects a list of messages
+input_prompt = [{"role": "user", "content": testing_prompt}]
+
+response = deepseek_client.chat.completions.create(
+    model='deepseek-v4-flash',    
+    # 2. Now i dont have to include input_prompt as a list  
+    messages=input_prompt
+)
+
+content = response.choices[0].message.content
+print(content)

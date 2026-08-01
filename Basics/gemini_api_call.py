@@ -17,7 +17,7 @@ openai = OpenAI(base_url=GEMINI_BASE_URL, api_key=api_key)
 
 response = openai.chat.completions.create(
     model="gemini-3.5-flash",
-    # 2. But make sure you use a list here
+    # 2. But make sure you use a list
     messages=[message]
 )
 
