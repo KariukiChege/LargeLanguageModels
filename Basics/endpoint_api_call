@@ -1,0 +1,16 @@
+import os
+import requests
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+api_key = os.getenv("DEEPSEEK_API_KEY")
+headers = {"Authorization": f"Bearer {api_key}", 'content-type': 'application/json'}
+
+payload = {
+    "model": "deepseek-v4-flash",
+    "messages": [{"role": "user", "content": "What is the capital of France?"}]
+}
+
+response = requests.post("https://api.deepseek.com/v1/chat/completions", headers=headers, json=payload)
+content = response.json()['choices'][0]['message']['content']
+print(content)
